@@ -1,0 +1,127 @@
+********* color change mode dark/bright
+function App() {
+ 
+    const [bgcolor,setBgcolor]=useState("white")
+    const [color,setColor]=useState("black")
+    const [txt,setTxt]=useState("bright")
+    function handleTheme(){
+      if (bgcolor=="white"){
+        setBgcolor("black")
+        setColor("white")
+        setTxt("Bright")
+      }else{  
+  
+        setBgcolor("white")
+        setColor("black")
+        setTxt("Dark")
+  
+      }
+    }
+    return (
+      <div className="App" style={{ backgroundColor: bgcolor, color: color }}>
+        <h1>Hello students</h1>
+        <button onClick={handleTheme}>{txt}</button>
+        
+      </div>
+    );
+  }
+export default App  
+
+
+
+**********************************************************
+**********************************************************
+****************************************************************
+***********************************************
+
+****************** implement above using single state only
+**************************************************************
+**************************************************************
+***************************************************************
+import React,{useState} from 'react'
+import "./index.css"
+
+function App() {
+ 
+    const [condition,setCondition]=useState(false)
+    function handleTheme(){
+      if(condition===false){
+        setCondition(true)
+      }else{
+        setCondition(false)
+      }
+
+    }
+    return (
+      <div className="App" style={{ backgroundColor: condition?"black":"white", color: condition?"white":"black" }}>
+        <h1>Hello fresher</h1>
+        <button onClick={handleTheme}>{condition?"white":"black"}</button>
+        
+      </div>
+    );
+  }
+export default App
+****************************************************
+******************************************************
+**************form worst case**********************
+import React, { useState }  from 'react'
+
+function App() {
+  
+  const [name,setName]=useState("")
+  const [email,setEmail]=useState("")
+  const [password,setPassword]=useState("")
+  
+  return (
+    <div>
+      <form >
+      <input type='text' placeholder='Enter Name' value={name} onChange={(e)=>setName(e.target.value)}/><br></br>
+      <input type='email' placeholder='Enter Email'value={email} onChange={(e)=>setEmail(e.target.value)}/><br></br>
+      <input type='password' placeholder='Enter Password'value={password} onChange={(e)=>setPassword(e.target.value)}/><br></br>
+      <input type='Submit' value="Submit"/><br></br>
+      </form>
+    </div>
+  )
+}
+
+export default App
+********************************************************
+*************************good approach***************
+*****************************************************
+import React, { useState }  from 'react'
+
+function App() {
+  
+  const [data,setData]=useState({
+
+   name:"",
+   email:"",
+   password:""
+
+
+
+
+
+  })
+  const[condition,setCondition]=useState(false)
+  function handleSubmit(e){
+    e.preventDefault()
+    setCondition(true)
+  }
+  
+  
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+      <input type='text' placeholder='Enter Name' value={data.name} onChange={(e)=>setData((prev)=>({...prev ,name:e.target.value}))}/><br></br>
+      <input type='email' placeholder='Enter Email'value={data.email} onChange={(e)=>setData((prev)=>({...prev,email:e.target.value}))}/><br></br>
+      <input type='password' placeholder='Enter Password'value={data.password} onChange={(e)=>setData((prev)=>({...prev,password:e.target.value}))}/><br></br>
+      <input type='Submit' value="Submit"/><br></br>
+      {condition?<h1>my name is{data.name} email is{data.email}</h1>:"plz submit"}
+      </form>
+    </div>
+  )
+}
+
+export default App
+
